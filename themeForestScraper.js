@@ -88,6 +88,8 @@ var scrapeThemes = function(body, callback) {
 
 var processThemes = function (themes, callback) {
 
+  // Controls scraping process
+
   var $ = cheerio.load(themes);
 
   themes.each(function(index, element) {
