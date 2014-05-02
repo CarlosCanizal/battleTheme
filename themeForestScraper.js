@@ -99,3 +99,48 @@ var processThemes = function (themes, callback) {
     });
   });
 };
+
+var scrapeTheme = function(theme, $, callback) {
+
+  // Scrapes a theme
+
+  var themeJSON = {
+    itemId:         theme.data('itemId'),
+    category:       theme.attr('class'),
+    name:           theme.find('h3', 'item-info').find('a').text().trim(),
+    author:         theme.find('.author', 'a').text().trim(),
+    themeURL:       theme.find('h3', 'item-info').find('a').attr('href'),
+    authorURL:      'http://themeforest.net' + theme.find('.author', 'a').attr('href'),
+    previewURL:     theme.find('a[title="Open live preview"]').attr('href') ?
+                      'http://themeforest.net' + theme.find('a[title="Open live preview"]').attr('href') :
+                      undefined,
+    tags:           [],
+    description:    '',
+    thumbnail:      theme.find('.thumbnail img').attr('src'),
+    poster:         theme.find('.thumbnail img').data('previewUrl'),
+    sales:          theme.find('.sale-count').text().match(/\d+/)[0],
+    price:          theme.find('.price').text().match(/\d+/)[0]
+  };
+
+  // Pushes tags into tag property
+
+  theme.find('.meta-categories').children().each(function(index, element){
+    var tag = $(this);
+    themeJSON.tags.push(tag.text());
+  });
+
+  // Processes description
+
+  themeJSON.description = theme.find('.meta').clone();
+  $('span', themeJSON.description).remove();
+  themeJSON.description = themeJSON.description.text().trim();
+
+  if(themeJSON.previewURL !== undefined) {
+    getPreview(themeJSON.previewURL, function(previewURL) {
+      themeJSON.previewURL = previewURL;
+      callback(themeJSON);
+    });
+  } else {
+    callback(themeJSON);
+  }
+};
