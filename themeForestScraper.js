@@ -155,3 +155,12 @@ var getPreview = function(url, callback) {
     });
   });
 };
+
+var scrapePreview = function(body, callback) {
+
+  // Scrapes the theme's preview link
+
+  var $ = cheerio.load(body);
+  var previewURL = $('#close-button').attr('href');
+  callback(previewURL);
+};
