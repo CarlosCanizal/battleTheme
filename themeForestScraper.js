@@ -164,3 +164,18 @@ var scrapePreview = function(body, callback) {
   var previewURL = $('#close-button').attr('href');
   callback(previewURL);
 };
+
+var writeTheme = function(themeJSON, callback) {
+
+  var theme = JSON.stringify(themeJSON, null, 2) + ',';
+
+  // Writes a theme in JSON format to output file
+
+  fs.appendFile('output.json', theme, function(err) {
+    if(err) {
+      console.log('Error writing file: ' + err);
+      throw err;
+    }
+    callback();
+  });
+};
