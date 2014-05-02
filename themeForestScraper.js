@@ -144,3 +144,14 @@ var scrapeTheme = function(theme, $, callback) {
     callback(themeJSON);
   }
 };
+
+var getPreview = function(url, callback) {
+
+  // Gets preview page
+
+  request(url, function(err, res, body) {
+    scrapePreview(body, function(previewURL) {
+      callback(previewURL);
+    });
+  });
+};
