@@ -72,3 +72,16 @@ var scrapePage = function(page, callback) {
     });
   });
 };
+
+var scrapeThemes = function(body, callback) {
+
+  // Scrapes a theme page
+
+  var $ = cheerio.load(body);
+
+  var themes = $('.item-list').children();
+
+  processThemes(themes, function(){
+    callback(themes.length);
+  });
+};
