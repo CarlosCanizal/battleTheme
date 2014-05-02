@@ -18,3 +18,18 @@ app.get('/scrape', function(req, res){
   res.send('Scraping!');
 
 });
+
+var scrapeStart = function(url, callback) {
+
+  // Begins scraping process
+
+  request(url, function(error, response, body) {
+
+    if(!error && response.statusCode == 200) {
+      scrapeTotalPages(body, function(themes, pages) {
+        console.log('Beginning scraping ' + themes + ' themes in ' + pages + ' pages...');
+        processPages(1, pages);
+      })
+    }
+  });
+};
