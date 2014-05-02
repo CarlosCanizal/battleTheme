@@ -44,3 +44,17 @@ var scrapeTotalPages = function(body, callback) {
 
   callback(themes, pages);
 };
+
+var processPages = function(page, pages){
+
+  // Controls scraping process
+
+  if(page <= pages) {
+    scrapePage(page, function(page) {
+      console.log('Finished scraping page ' + page + ' of ' + pages + ' pages...')
+      return processPages(++page, pages);
+    })
+  } else {
+    return 'Finished scraping!';
+  }
+};
