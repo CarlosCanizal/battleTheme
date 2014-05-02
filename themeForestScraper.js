@@ -85,3 +85,17 @@ var scrapeThemes = function(body, callback) {
     callback(themes.length);
   });
 };
+
+var processThemes = function (themes, callback) {
+
+  var $ = cheerio.load(themes);
+
+  themes.each(function(index, element) {
+    var theme = $(this);
+    scrapeTheme(theme, $, function(themeJSON) {
+      writeTheme(themeJSON, function(){
+        processThemes(themes);
+      });
+    });
+  });
+};
