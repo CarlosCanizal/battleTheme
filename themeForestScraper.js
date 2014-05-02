@@ -58,3 +58,17 @@ var processPages = function(page, pages){
     return 'Finished scraping!';
   }
 };
+
+var scrapePage = function(page, callback) {
+
+  // Gets theme page
+
+  var url = 'http://themeforest.net/category/all?page=' + page;
+
+  request(url, function(err, res, body) {
+    scrapeThemes(body, function(themes) {
+      console.log('Finished scraping ' + themes + ' themes...');
+      callback(page);
+    });
+  });
+};
