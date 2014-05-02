@@ -1,5 +1,5 @@
 {
-  "name"         : "Battle Theme",
+  "name"         : "Battle-Theme",
   "version"      : "0.0.1",
   "description"  : "Theme search engine",
   "main"         : "server.js",
