@@ -1,0 +1,12 @@
+{
+  "name"         : "Battle Theme",
+  "version"      : "0.0.1",
+  "description"  : "Theme search engine",
+  "main"         : "server.js",
+  "author"       : "Juan Marin",
+  "dependencies" : {
+    "express"    : "latest",
+    "request"    : "latest",
+    "cheerio"    : "latest"
+  }
+}
