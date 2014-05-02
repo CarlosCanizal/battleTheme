@@ -33,3 +33,14 @@ var scrapeStart = function(url, callback) {
     }
   });
 };
+
+var scrapeTotalPages = function(body, callback) {
+
+  // Finds total number of pages and themes to scrape
+
+  var $ = cheerio.load(body);
+  var themes = parseInt($('.page-title__result-count p').text().match(/\d+/)[0]);
+  var pages = parseInt($('.pagination__list').first().children().last().prev().find('a').text());
+
+  callback(themes, pages);
+};
