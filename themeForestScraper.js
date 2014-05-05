@@ -96,10 +96,12 @@ var processThemes = function (themes, callback) {
     var theme = $(this);
     scrapeTheme(theme, $, function(themeJSON) {
       writeTheme(themeJSON, function(){
-        processThemes(themes);
+        //processThemes(themes);
       });
     });
   });
+
+  callback();
 };
 
 var scrapeTheme = function(theme, $, callback) {
